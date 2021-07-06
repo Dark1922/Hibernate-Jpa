@@ -6,6 +6,18 @@
 	
 	<persistence-unit name="pos-java-maven-hibernete">
 	
+	<properties>
+	
+	<!-- Dados de conexão com o banco -->
+	<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+	<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/posjavahibernate"/>
+	<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+	<property name="hibernate.connection.username" value="postgres"/>
+	<property name="hibernate.connection.password" value="84353246mv"/>
+	<property name="hibernate.hbm2dll.auto" value="update"/>
+	
+	</properties>
+	
 	</persistence-unit>
 	
 </persistence>
