@@ -18,12 +18,12 @@ public class TesteHibernate {
 
          //seta os atributo id gera automaticamente
           
-         pessoa.setNome("toca");
-         pessoa.setSobrenome("rei");
-         pessoa.setEmail("ardmir@gmail.com");
-         pessoa.setLogin("imitan");
+         pessoa.setNome("Beatriz");
+         pessoa.setSobrenome("rei123");
+         pessoa.setEmail("ardmir123@gmail.com");
+         pessoa.setLogin("imitan123");
          pessoa.setSenha("qweqwqwe");
-         pessoa.setIdade(33);
+         pessoa.setIdade(22);
          
          daoGeneric.salvar(pessoa);
 	}
@@ -124,7 +124,10 @@ public class TesteHibernate {
 		
 		 DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa> ();
 		 
-		 List<UsuarioPessoa> list = daoGeneric.getEntityManager().createQuery(" from UsuarioPessoa").getResultList();
+		 List<UsuarioPessoa> list = daoGeneric.getEntityManager().createQuery
+				 (" from UsuarioPessoa order by nome")//vão estar ordenados por nome
+				 .setMaxResults(6)
+				 .getResultList();
 		 
 		 for (UsuarioPessoa usuarioPessoa : list) {
 			 
