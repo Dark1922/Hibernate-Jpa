@@ -76,11 +76,16 @@ public class DaoGeneric<E> {// e de entidade
 
 		// from o nome da nossa entidade e retorna o resultado em lista
 		//mesma coisa que from * usuariopessoa só que de forma genérica
-		List<E> lista = entityManager.createQuery("from " + entidade.getName()).getResultList();
+		List<E> lista = entityManager.createQuery("from  " + entidade.getName()).getResultList();
 
 		transaction.commit();
 
 		return lista;
 
+	}
+	
+	//acessar nosso entityManager em outras parte do projeto
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 }
