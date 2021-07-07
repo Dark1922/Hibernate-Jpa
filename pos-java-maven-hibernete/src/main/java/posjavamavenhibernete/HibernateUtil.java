@@ -34,6 +34,7 @@ public class HibernateUtil {
 		return factory.createEntityManager();//prove a parte de  persistencia
 	}
 	
+	//método para identificar o ID
 	public static Object getPrimaryKey(Object entity) {//Retorna a primray Key
 		 
 		return factory.getPersistenceUnitUtil().getIdentifier(entity);

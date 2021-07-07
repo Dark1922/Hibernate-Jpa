@@ -1,5 +1,7 @@
 package posjavamavenhibernete;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import dao.DaoGeneric;
@@ -54,7 +56,7 @@ public class TesteHibernate {
 	public void update() {
 		
 		 DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa> ();
-		 UsuarioPessoa pessoa = daoGeneric.pesquisar2(3L , UsuarioPessoa.class);
+		 UsuarioPessoa pessoa = daoGeneric.pesquisar2(4L , UsuarioPessoa.class);
 		 
 		 pessoa.setIdade(22);
 		 pessoa.setNome("Minha Gata Preciosa");
@@ -67,4 +69,39 @@ public class TesteHibernate {
 		 
 		 System.out.println(pessoa); 
 	}
+	
+	@Test
+	public void testeDelete() {
+		
+		//para deletar precisa consultar o id
+		 DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa> ();
+		 UsuarioPessoa pessoa = daoGeneric.pesquisar2(7L , UsuarioPessoa.class);
+		
+		 daoGeneric.deletarPorId(pessoa); //deletando o id passando a pessoa aqui
+		 
+		 
+		 System.out.println(pessoa); 
+	}
+	
+	@Test
+	public void testeConsultar() {
+		
+		//para deletar precisa consultar o id
+		 DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa> ();
+
+		 //passa uma lista com o generic nossa entidade com a classe que ele vai carregar
+		 //que é a classe UsuarioPessoa
+		 List<UsuarioPessoa> list = daoGeneric.listar(UsuarioPessoa.class);
+		  
+		 for (UsuarioPessoa usuarioPessoa : list) {
+			
+			 //lista dos usuarios pessoas
+			 System.out.println(usuarioPessoa);
+			 System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------");
+			
+		}
+		 
+		 
+	}
+	
 }
