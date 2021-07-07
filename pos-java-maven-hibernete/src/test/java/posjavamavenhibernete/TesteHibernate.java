@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Test;
 
 import dao.DaoGeneric;
+import model.TelefoneUser;
 import model.UsuarioPessoa;
 
 public class TesteHibernate {
@@ -182,4 +183,55 @@ public class TesteHibernate {
 		
 	}
 	
+	@Test
+	public void testNamedQuer2y() {
+		
+		 DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+		 
+		 List<UsuarioPessoa> list = daoGeneric.getEntityManager()
+				 .createNamedQuery("UsuarioPessoa.buscaPorNome")
+				 .setParameter("nome", "ana")
+				 .getResultList();
+		 
+		 for (UsuarioPessoa usuarioPessoa : list) {
+			
+			 System.out.println(usuarioPessoa);
+			 System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------");
+		}
+		
+	}
+	
+	@Test
+	public void testGravarTelefone() {
+		
+		 DaoGeneric daoGeneric = new DaoGeneric ();
+		 
+		 UsuarioPessoa pessoa = (UsuarioPessoa) daoGeneric.pesquisar2(2L, UsuarioPessoa.class);
+		 
+		 TelefoneUser telefoneUser = new TelefoneUser();
+		 
+		 telefoneUser.setDdd("52");
+		 telefoneUser.setNumero("963263964");
+		 telefoneUser.setUsuarioPessoa(pessoa); //passa a pesso que vai ser dono desse celular
+		 
+		 daoGeneric.salvar(telefoneUser);
+		 
+		 
+	}
+	
+	@Test
+	public void testeConsultarTelefone() {
+		
+		 DaoGeneric daoGeneric = new DaoGeneric ();
+
+		 UsuarioPessoa pessoa = (UsuarioPessoa) daoGeneric.pesquisar2(2L, UsuarioPessoa.class);
+ 		  
+		 for (TelefoneUser fone : pessoa.getTelefoneUsers()) {
+			
+			 //lista dos usuarios pessoas
+		 System.out.println("Nome User: " + fone.getUsuarioPessoa().getNome() + " DDD: " + fone.getDdd() + " Número: " + fone.getNumero());
+			 System.out.println("--------------------------------------------------------");
+			
+		}
+	}
 }

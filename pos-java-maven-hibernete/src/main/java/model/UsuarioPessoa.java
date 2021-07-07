@@ -1,15 +1,20 @@
 package model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "UsuarioPessoa.findAll", query = "select u from UsuarioPessoa u")
+@NamedQueries({ @NamedQuery(name = "UsuarioPessoa.findAll", query = "select u from UsuarioPessoa u"),
+		@NamedQuery(name = "UsuarioPessoa.buscaPorNome", query = "select u from UsuarioPessoa u where u.nome = :nome")
+
 })
 public class UsuarioPessoa {
 
@@ -23,11 +28,24 @@ public class UsuarioPessoa {
 	private String login;
 	private String senha;
 	private int idade;
-	
+
+	// mapeado com usuarioPessoa do telefoneUser que está fazendo o ManyToOne
+	// ele que vai trazer os telefones dos usuarios
+	@OneToMany(mappedBy = "usuarioPessoa", fetch = FetchType.EAGER)//eager trazer os telefone pra gente
+	private List<TelefoneUser> telefoneUsers;
+
+	public void setTelefoneUsers(List<TelefoneUser> telefoneUsers) {
+		this.telefoneUsers = telefoneUsers;
+	}
+
+	public List<TelefoneUser> getTelefoneUsers() {
+		return telefoneUsers;
+	}
+
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-	
+
 	public int getIdade() {
 		return idade;
 	}
@@ -82,8 +100,9 @@ public class UsuarioPessoa {
 
 	@Override
 	public String toString() {
-		return "UsuarioPessoa [id= " + id + ", nome= " + nome + ", sobrenome= " + sobrenome + ", email= " + email
-				+ ", login=" + login + ", senha= " + senha + ", idade= " + idade + "]";
+		return "UsuarioPessoa [id=" + id + ", nome=" + nome + ", sobrenome=" + sobrenome + ", email=" + email
+				+ ", login=" + login + ", senha=" + senha + ", idade=" + idade + ", telefoneUsers=" + telefoneUsers
+				+ "]";
 	}
 
 }
