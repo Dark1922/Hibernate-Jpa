@@ -9,6 +9,7 @@ import model.UsuarioPessoa;
 
 public class TesteHibernate {
 
+	
 	@Test
 	public void salvarUsuario() {
          //passa a nossa model pro generic
@@ -163,6 +164,22 @@ public class TesteHibernate {
 				.createQuery("select sum(u.idade) from UsuarioPessoa u").getSingleResult();
 		
 		System.out.println("Soma de todas as idades é --> " + somaIdade);
+	}
+	
+	@Test
+	public void testNamedQuery() {
+		
+		 DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+		 
+		 List<UsuarioPessoa> list = daoGeneric.getEntityManager()
+				 .createNamedQuery("UsuarioPessoa.findAll").getResultList();
+		 
+		 for (UsuarioPessoa usuarioPessoa : list) {
+			
+			 System.out.println(usuarioPessoa);
+			 System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------");
+		}
+		
 	}
 	
 }
